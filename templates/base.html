@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CredentiQ — AI Fake News Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+.footer {
+    background: linear-gradient(135deg, #020617, #0f172a);
+    color: #cbd5f5;
+    padding: 60px 10% 30px;
+    font-size: 14px;
+}
+
+/* Grid Layout */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+/* Logo + About */
+.footer-brand h3 {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.footer-brand p {
+    max-width: 300px;
+    line-height: 1.6;
+}
+
+/* Links */
+.footer-links h4 {
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    display: block;
+    text-decoration: none;
+    color: #cbd5f5;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #38bdf8;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 40px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* Social Icons */
+.social-icons a {
+    margin-right: 12px;
+    font-size: 18px;
+    color: #cbd5f5;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #38bdf8;
+}
+</style>
+
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i> Credent<span>IQ</span>
+        </div>
+        <nav class="nav">
+            <a href="/" class="active"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="/category/general"><i class="fa-solid fa-newspaper"></i> News</a>
+            <a href="/dashboard"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="/about"><i class="fa-solid fa-circle-info"></i> About</a>
+            <a href="/contact"><i class="fa-solid fa-circle-info"></i>Contact</a>
+            {% if current_user.is_authenticated %}
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 CredentiQ • Powered by Advanced Neural Networks • All Rights Reserved</p>
+    </footer>
+    
+<footer class="footer">
+    <div class="footer-container">
+        
+        <!-- Brand -->
+        <div class="footer-brand">
+            <h3>CredentiQ</h3>
+            <p>
+                An AI-powered platform that analyzes news credibility using advanced machine learning 
+                and real-time data to help users make informed decisions.
+            </p>
+            <div class="social-icons">
+                <a href="#">🌐</a>
+                <a href="#">🐦</a>
+                <a href="#">💼</a>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <a href="#">Home</a>
+            <a href="#">Verify News</a>
+            <a href="#">Dashboard</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <!-- Features -->
+        <div class="footer-links">
+            <h4>Features</h4>
+            <a href="#">AI Analysis</a>
+            <a href="#">Real-time Detection</a>
+            <a href="#">Credibility Score</a>
+            <a href="#">API Access</a>
+        </div>
+
+        <!-- Support -->
+        <div class="footer-links">
+            <h4>Support</h4>
+            <a href="#">Help Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="footer-bottom">
+        © 2026 CredentiQ. All rights reserved. | Built with AI ⚡
+    </div>
+</footer>
+</body>
+</html>

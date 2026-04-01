@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About CredentiQ — Intelligence & Transparency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #070a13;         /* Deep rich space cadet from Image 1 */
+            --primary: #00f2ff;         /* Cyber Cyan */
+            --warning: #f59e0b;         /* Warning Amber */
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.05);
+            --glass: rgba(13, 18, 34, 0.65); /* Dark frosted glass */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           1. NAVBAR (Matches index and dashboard)
+           ========================================= */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(4, 6, 11, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i, .logo span { color: var(--primary); }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 25px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* =========================================
+           2. HERO SECTION
+           ========================================= */
+        .about-hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+            position: relative;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, rgba(7, 10, 19, 0) 70%);
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .about-hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-hero p {
+            color: var(--text-muted);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =========================================
+           3. CONTENT SECTIONS
+           ========================================= */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(20px);
+            transition: 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 242, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 242, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .glass-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .glass-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* =========================================
+           4. SYSTEM ARCHITECTURE STRIP
+           ========================================= */
+        .wide-card {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .tag i {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        /* =========================================
+           5. FOOTER
+           ========================================= */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(4, 6, 11, 0.8);
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i> Credenti<span>Q</span>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about" class="active">About</a>
+            <a href="/dashboard">Dashboard</a>
+            {% if current_user.is_authenticated %}
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="about-hero">
+        <div class="ambient-glow"></div>
+        <h1>Fighting Misinformation with Code</h1>
+        <p>CredentiQ is an intelligent sentiment and credibility analysis ecosystem built to detect anomalies in digital journalism.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="glass-card">
+            <div class="icon-box">
+                <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <h3>Our Mission</h3>
+            <p>In a world flooded with AI-generated text and fast-moving claims, manual fact-checking simply cannot scale. CredentiQ aims to bridge that gap by providing instantaneous, reliable machine-learning checks that flag biased language patterns and source red flags.</p>
+        </div>
+
+        <div class="glass-card">
+            <div class="icon-box">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3>The Core Logic</h3>
+            <p>We don't just guess if something is fake. Our pipeline runs a multi-layered check: natural language processing (NLP) to judge the grammar and emotional charge of the text, heuristic rules to flag clickbait titles, and direct API checks to verify reporting sources.</p>
+        </div>
+
+        <div class="glass-card">
+            <div class="icon-box">
+                <i class="fa-solid fa-eye"></i>
+            </div>
+            <h3>Total Transparency</h3>
+            <p>Black-box AI is dangerous. CredentiQ refuses to give a verdict without context. Our dashboard provides active explanations, mapping out exactly why an article was labeled suspicious, protecting users from blind trust.</p>
+        </div>
+
+        <div class="glass-card wide-card">
+            <div>
+                <h3>Engineered Tech Stack</h3>
+                <p>CredentiQ is built using modern full-stack methodologies and industry-standard training models to ensure lightning-fast prediction speeds and secure database session mapping.</p>
+            </div>
+
+            <div class="tech-tags">
+                <div class="tag"><i class="fa-brands fa-python"></i> Python Backend</div>
+                <div class="tag"><i class="fa-solid fa-pepper-hot"></i> Flask Microframework</div>
+                <div class="tag"><i class="fa-solid fa-database"></i> SQLite & SQLAlchemy</div>
+                <div class="tag"><i class="fa-solid fa-robot"></i> Advanced Machine Learning</div>
+                <div class="tag"><i class="fa-solid fa-code-branch"></i> NewsAPI Integration</div>
+                <div class="tag"><i class="fa-solid fa-window-restore"></i> Glassmorphic UI</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        &copy; 2026 CredentiQ. Built for academic and ethical verification purposes.
+    </div>
+
+</body>
+</html>

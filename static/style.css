@@ -1,0 +1,378 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET (Cyber Palette)
+   ========================================= */
+:root {
+    --bg-dark: #070a13;          /* Very Deep Navy */
+    --bg-card: #0d1222;          /* Slate Card Background */
+    --primary: #00f2ff;          /* Cyber Cyan/Teal */
+    --primary-hover: #00bfff;    /* Deep Cyan */
+    --text-white: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.05);
+    --glass: rgba(13, 18, 34, 0.75);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    scroll-behavior: smooth;
+}
+
+/* =========================================
+   2. GLASS NAVBAR
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i { color: var(--primary); }
+.logo span { color: var(--primary); }
+
+.nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav a:hover, .nav a.active {
+    color: var(--primary);
+}
+
+/* =========================================
+   3. HERO SECTION WITH RADIAL GLOW
+   ========================================= */
+.hero {
+    height: 70vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-blur-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.15) 0%, rgba(7, 10, 19, 0) 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.badge {
+    background: rgba(0, 242, 255, 0.1);
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 1px solid rgba(0, 242, 255, 0.2);
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 15px 0;
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p { color: var(--text-muted); font-size: 18px; margin-bottom: 30px; line-height: 1.6; }
+
+.cta-primary, .cta-secondary {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s ease;
+    margin: 5px;
+}
+
+.cta-primary { background: var(--primary); color: #070a13; }
+.cta-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 242, 255, 0.3); }
+
+.cta-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.cta-secondary:hover { background: rgba(255,255,255,0.05); }
+
+/* =========================================
+   4. STRIP & CATEGORIES
+   ========================================= */
+.trust-strip {
+    display: flex;
+    justify-content: space-around;
+    background: var(--bg-card);
+    padding: 20px 5%;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.trust-card { font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.trust-card i { color: var(--primary); font-size: 16px; }
+.trust-card span { color: #fff; font-weight: 600; }
+
+.categories-bar { padding: 30px 5% 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+.categories-bar h3 { font-size: 18px; }
+.categories { display: flex; gap: 10px; }
+
+.cat-btn {
+    text-decoration: none;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.03);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.3s;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+
+.cat-btn:hover, .cat-btn.active { background: var(--primary); color: #070a13; }
+
+/* =========================================
+   5. INTERACTIVE NEWS GRID
+   ========================================= */
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    padding: 20px 5% 50px;
+}
+
+.news-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: 0.3s ease;
+}
+
+.news-card:hover { transform: translateY(-5px); border-color: rgba(0, 242, 255, 0.2); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+.img-wrapper img { width: 100%; height: 200px; object-fit: cover; }
+
+.content { padding: 20px; }
+.content h3 { font-size: 16px; margin-bottom: 10px; line-height: 1.4; height: 45px; overflow: hidden; }
+.content p { color: var(--text-muted); font-size: 13px; line-height: 1.5; height: 60px; overflow: hidden; margin-bottom: 15px; }
+
+.actions { display: flex; justify-content: space-between; align-items: center; }
+
+.read-btn { text-decoration: none; color: var(--primary); font-size: 13px; font-weight: 600; }
+.verify-btn { background: rgba(0, 242, 255, 0.1); color: var(--primary); border: 1px solid rgba(0, 242, 255, 0.2); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+.verify-btn:hover { background: var(--primary); color: #070a13; }
+
+/* =========================================
+   6. SECTIONS & REVIEWS
+   ========================================= */
+.section { padding: 80px 5%; text-align: center; border-top: 1px solid var(--border); }
+.section-badge { color: var(--primary); font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+.section h2 { font-size: 32px; margin: 10px 0 40px; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+.step { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); text-align: left; }
+.step-num { font-size: 40px; font-weight: 800; color: rgba(0, 242, 255, 0.15); margin-bottom: 10px; }
+.step h4 { font-size: 18px; margin-bottom: 10px; }
+.step p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+
+.reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.review { background: var(--bg-card); padding: 25px; border-radius: 16px; text-align: left; border: 1px solid var(--border); }
+.stars { color: #f59e0b; margin-bottom: 10px; }
+.review p { font-style: italic; color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 15px; }
+.review h5 { color: var(--text-white); font-size: 13px; }
+
+
+/* --- SHARED UTILITIES --- */
+.badge {
+    background: rgba(0, 242, 255, 0.1);
+    color: #00f2ff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(0, 242, 255, 0.2);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 15px 0;
+    font-weight: 700;
+}
+
+.section-header p {
+    color: #a0aec0;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- HOW IT WORKS GRID --- */
+.how-it-works-section, .testimonials-section {
+    padding: 80px 20px;
+    background: #0b0f19; /* Deep dark background to make glass pop */
+}
+
+.steps-grid, .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-card {
+    position: relative;
+    padding: 40px 30px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+}
+
+.step-number {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 3rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.05);
+}
+
+.step-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.step-card h3 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.step-card p {
+    color: #a0aec0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- TESTIMONIALS --- */
+.testimonial-card {
+    padding: 35px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.quote-mark {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 4rem;
+    color: rgba(0, 242, 255, 0.1);
+    font-family: serif;
+}
+
+.testimonial-text {
+    color: #e2e8f0;
+    font-style: italic;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.user-info h4 {
+    color: #fff;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.user-info span {
+    color: #718096;
+    font-size: 0.85rem;
+}
+
+/* --- CARD GLOW EFFECT --- */
+.card-glow {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+.footer { text-align: center; padding: 40px; background: #04060b; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 13px; }

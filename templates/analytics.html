@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics & Insights — CredentiQ</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #070a13;          /* Deep rich background from Image 1 */
+            --bg-card: rgba(13, 18, 34, 0.65); /* Dark frosted glass cards */
+            --primary: #00f2ff;          /* Vibrant Cyber Cyan */
+            --warning: #f59e0b;          /* Warning Amber/Orange */
+            --danger: #ff4d4d;           /* Danger Coral Red */
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.05);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        body {
+            display: flex;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           1. SIDEBAR (Matching Dashboard)
+           ========================================= */
+        .sidebar {
+            width: 250px;
+            background: rgba(4, 6, 11, 0.8);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid var(--border);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            color: var(--text-white);
+            font-weight: 700;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar h2 span { color: var(--primary); }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            transition: 0.2s ease;
+        }
+        .nav-link i { font-size: 16px; width: 20px; text-align: center; }
+        .nav-link:hover { background: rgba(0, 242, 255, 0.05); color: var(--primary); }
+        .nav-link.active {
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            font-weight: 600;
+        }
+
+        /* =========================================
+           2. MAIN CONTENT
+           ========================================= */
+        .main {
+            flex: 1;
+            padding: 40px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .topbar {
+            margin-bottom: 40px;
+        }
+        .topbar h1 { font-size: 28px; font-weight: 700; margin-bottom: 5px; }
+        .topbar p { color: var(--text-muted); font-size: 14px; }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+        }
+        .glass-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2><i class="fa-solid fa-shield-halved"></i> <span>CredentIQ</h2>
+        <a href="/dashboard" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+        </a>
+        <a href="/analytics" class="nav-link active">
+            <i class="fa-solid fa-chart-line"></i> <span>Analytics</span>
+        </a>
+        <a href="/" class="nav-link">
+            <i class="fa-solid fa-house"></i> <span>Home</span>
+        </a>
+        <a href="/logout" class="nav-link" style="margin-top: auto; color: #ef4444;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Logout</span>
+        </a>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <h1>Analytics Overview 📊</h1>
+            <p>Visualizing your scan history and model detections.</p>
+        </div>
+
+        <div class="chart-grid">
+
+            <div class="glass-card">
+                <h3>Verification Distribution</h3>
+                <canvas id="myChart"></canvas>
+            </div>
+
+            <div class="glass-card">
+                <h3>Ratio Breakdown</h3>
+                <canvas id="myPieChart"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 1. Setup Data
+        const chartData = {
+            labels: ['Fake News', 'Real News'],
+            datasets: [{
+                label: 'Analysis Count',
+                data: [{{ fake_count }}, {{ real_count }}],
+                backgroundColor: ['#ff4d4d', '#00f2ff'],
+                borderColor: ['rgba(255, 77, 77, 0.2)', 'rgba(0, 242, 255, 0.2)'],
+                borderWidth: 1,
+                borderRadius: 8 // Makes bar corners rounded
+            }]
+        };
+
+        // 2. Render Bar Chart
+        const ctxBar = document.getElementById('myChart');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false } // Hides redundant top legend box
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }, // Subtle dark grid lines
+                        ticks: { color: '#94a3b8' } // Muted gray axis text
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8' }
+                    }
+                }
+            }
+        });
+
+        // 3. Render Pie Chart
+        const ctxPie = document.getElementById('myPieChart');
+        new Chart(ctxPie, {
+            type: 'pie',
+            data: chartData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans' } }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

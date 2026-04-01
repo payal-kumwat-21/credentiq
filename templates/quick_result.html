@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Result — CredentiQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #070a13;         /* Deep rich space cadet from Image 1 */
+            --primary: #00f2ff;         /* Cyber Cyan */
+            --warning: #f59e0b;         /* Warning Amber */
+            --danger: #ff4d4d;           /* Danger Coral Red */
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.05);
+            --glass: rgba(13, 18, 34, 0.65); /* Dark frosted glass */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glow Effect from Image 1 */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, rgba(7, 10, 19, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        /* Glass Card wrapper */
+        .card {
+            width: 100%;
+            max-width: 650px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            z-index: 2;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .logo span { color: var(--primary); }
+
+        /* Dynamic result styling mapped to your ML strings */
+        .result-title {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            margin: 20px 0 10px;
+        }
+
+        /* Input text block */
+        .scanned-text {
+            background: rgba(4, 6, 11, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Progress indicator matching top cards of dashboard */
+        .metrics {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .progress-bar-wrapper {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 10px;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+            animation: load 1s ease;
+        }
+
+        /* Bullet points explanation area */
+        .explanation-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .explanation-block h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .explanation-block p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        /* Glow buttons from Image 1 */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #070a13;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 242, 255, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes load {
+            from { width: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <div class="card">
+        <div class="header">
+            <div class="logo"><i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> Credenti<span>Q</span></div>
+            <span style="font-size: 12px; color: var(--text-muted); font-weight: 600;">SCAN REPORT</span>
+        </div>
+
+        <div class="scanned-text">
+            <strong>Analyzed Text:</strong> {{ text }}
+        </div>
+
+        <h1 class="result-title" style="color:
+            {% if 'Fake' in result %} var(--danger)
+            {% elif 'Suspicious' in result %} var(--warning)
+            {% else %} var(--primary) {% endif %};">
+            {{ result }}
+        </h1>
+
+        <div class="metrics">
+            <span style="font-weight: 600;">Confidence Level</span>
+            <span style="color: var(--text-muted);">{{ confidence }}%</span>
+        </div>
+
+        <div class="progress-bar-wrapper">
+            <div class="progress-bar-fill" style="width: {{ confidence }}%;
+                 background:
+                     {% if 'Fake' in result %} var(--danger)
+                     {% elif 'Suspicious' in result %} var(--warning)
+                     {% else %} var(--primary) {% endif %};
+                 box-shadow: 0 0 10px
+                     {% if 'Fake' in result %} var(--danger)
+                     {% elif 'Suspicious' in result %} var(--warning)
+                     {% else %} var(--primary) {% endif %};">
+            </div>
+        </div>
+
+        <div class="explanation-block">
+            <h4>System Assessment</h4>
+            <p>{{ explanation or 'No detailed explanation flags were extracted for this input.' }}</p>
+        </div>
+
+        <button onclick="window.location.href='/'" class="btn">
+            <i class="fa-solid fa-arrow-left"></i> Return to Homepage
+        </button>
+    </div>
+
+</body>
+</html>

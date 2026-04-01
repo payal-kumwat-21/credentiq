@@ -1,0 +1,36 @@
+ {% extends "index.html" %}
+
+{% block content %}
+
+<h2 style="padding:20px;">{{ category.upper() }} NEWS</h2>
+
+<div class="news-container">
+{% for article in news %}
+
+<div class="news-card">
+
+<img src="{{ article.urlToImage or '' }}">
+
+<div class="news-content">
+<h3>{{ article.title }}</h3>
+<p>{{ article.description }}</p>
+
+<div class="news-actions">
+
+<a href="{{ article.url }}" target="_blank" class="read-btn">Read</a>
+
+<form action="/quick_analyze" method="POST">
+    <input type="hidden" name="news"
+           value="{{ article.title }} {{ article.description or '' }}">
+    <button type="submit" class="verify-btn">Verify</button>
+</form>
+
+</div>
+
+</div>
+</div>
+
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="hero">
+    <div class="hero-blur-glow"></div>
+    <div class="hero-content">
+        <span class="badge">Next-Gen Fact Checking</span>
+        <h1>Trust Before You Share</h1>
+        <p>CredentIQ is an AI-powered platform that analyzes news and detects whether it is real or fake.
+It helps users make informed decisions by providing credibility scores and clear explanations.
+</p>
+        <div class="hero-actions">
+            <a href="/dashboard" class="cta-primary"><i class="fa-solid fa-bolt"></i> Verify News Now</a>
+            <a href="#how-it-works" class="cta-secondary">Learn How It Works</a>
+        </div>
+    </div>
+</div>
+
+<div class="trust-strip">
+    <div class="trust-card"><i class="fa-solid fa-bullseye"></i> <span>92%</span> Accuracy AI Model</div>
+    <div class="trust-card"><i class="fa-solid fa-bolt"></i> <span>Real-Time</span> API Scanning</div>
+    <div class="trust-card"><i class="fa-solid fa-brain"></i> <span>Explainable</span> AI Logic</div>
+</div>
+
+<div class="categories-bar">
+    <h3>Discover Verified Feeds:</h3>
+    <div class="categories">
+        <a href="/category/general" class="cat-btn active">For You</a>
+        <a href="/category/technology" class="cat-btn">Technology</a>
+        <a href="/category/sports" class="cat-btn">Sports</a>
+        <a href="/category/entertainment" class="cat-btn">Entertainment</a>
+    </div>
+</div>
+
+<div class="news-section">
+    <div class="news-container">
+        {% for article in news %}
+        <div class="news-card">
+            <div class="img-wrapper">
+                <img src="{{ article.urlToImage or 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=500' }}" alt="News Image">
+            </div>
+            <div class="content">
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.description or 'No full description available for this source right now.' }}</p>
+                <div class="actions">
+                    <a href="{{ article.url }}" target="_blank" class="read-btn">Read Source</a>
+                    <form action="/quick_analyze" method="POST">
+                        <input type="hidden" name="news" value="{{ article.title }} {{ article.description or '' }}">
+                        <button class="verify-btn"><i class="fa-solid fa-robot"></i> Scan & Verify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<section class="how-it-works-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="badge">System Architecture</span>
+            <h2>How CredentIQ Works</h2>
+            <p>Our advanced Passive Aggressive Classifier model processes data in real-time through a 3-tier pipeline.</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="glass-card step-card">
+                <div class="step-number">01</div>
+                <div class="step-icon">📝</div>
+                <h3>Data Input & Cleaning</h3>
+                <p>User submits an article. Our system immediately strips special characters, URLs, and normalizes the text using RegEx.</p>
+                <div class="card-glow"></div>
+            </div>
+
+            <div class="glass-card step-card">
+                <div class="step-number">02</div>
+                <div class="step-icon">🔢</div>
+                <h3>TF-IDF Vectorization</h3>
+                <p>The cleaned text is converted into a matrix of TF-IDF numerical values, mapping words to mathematical weights.</p>
+                <div class="card-glow"></div>
+            </div>
+
+            <div class="glass-card step-card">
+                <div class="step-number">03</div>
+                <div class="step-icon">🤖</div>
+                <h3>AI Prediction</h3>
+                <p>Our pre-trained ML model reads the vectorized data to predict credibility and extract the top trigger words.</p>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="badge">Community Trust</span>
+            <h2>What Our Users Say</h2>
+            <p>See how journalists, students, and daily readers are fighting misinformation with CredentIQ.</p>
+        </div>
+
+        <div class="reviews">
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>“The UI is incredibly smooth and that API boost really makes a difference on breaking news.”</p>
+            <h5>- Alex M., Journalist</h5>
+        </div>
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>“Finally, a fake news detector that doesn't feel like a boring spreadsheet. Beautiful UX!”</p>
+            <h5>- Sarah K., Researcher</h5>
+        </div>
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>“Transparent explanations on why a piece of news was predicted fake.”</p>
+            <h5>- Dr. James, Professor</h5>
+        </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

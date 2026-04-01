@@ -1,0 +1,7 @@
+.config/
+sample_data/
+__pycache__/
+*.csv
+data/
+credentiq.db
+instance/

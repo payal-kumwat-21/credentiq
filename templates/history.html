@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis History — CredentIQ</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #070a13;
+            --bg-card: rgba(13, 18, 34, 0.65);
+            --primary: #00f2ff;
+            --warning: #f59e0b;
+            --danger: #ff4d4d;
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.05);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        body {
+            display: flex;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            background: rgba(4, 6, 11, 0.8);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid var(--border);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            color: var(--text-white);
+            font-weight: 700;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar h2 span { color: var(--primary); }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            transition: 0.2s ease;
+        }
+        .nav-link i { font-size: 16px; width: 20px; text-align: center; }
+        .nav-link:hover { background: rgba(0, 242, 255, 0.05); color: var(--primary); }
+        .nav-link.active {
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            font-weight: 600;
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            flex: 1;
+            padding: 40px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .topbar {
+            margin-bottom: 40px;
+        }
+        .topbar h1 { font-size: 28px; font-weight: 700; margin-bottom: 5px; }
+        .topbar p { color: var(--text-muted); font-size: 14px; }
+
+        /* TABLE STYLING */
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        td {
+            padding: 20px;
+            font-size: 14px;
+            color: #e2e8f0;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            vertical-align: middle;
+        }
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2><i class="fa-solid fa-shield-halved"></i> <span>CredentIQ</h2>
+        <a href="/dashboard" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+        </a>
+        <a href="/history" class="nav-link active">
+            <i class="fa-solid fa-clock-rotate-left"></i> <span>Analysis History</span>
+        </a>
+        <a href="/analytics" class="nav-link">
+            <i class="fa-solid fa-chart-line"></i> <span>Analytics</span>
+        </a>
+        <a href="/" class="nav-link">
+            <i class="fa-solid fa-house"></i> <span>Home</span>
+        </a>
+        <a href="/logout" class="nav-link" style="margin-top: auto; color: #ef4444;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Logout</span>
+        </a>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <h1>Analysis History 📜</h1>
+            <p>Review and audit all your past AI verifications.</p>
+        </div>
+        <div style="position: relative; margin-bottom: 20px; max-width: 400px;">
+    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search history by content, verdict, or keywords..." style="
+        width: 100%;
+        background: rgba(4, 6, 11, 0.5);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px 14px 14px 45px;
+        color: var(--text-white);
+        font-size: 14px;
+        outline: none;
+        transition: 0.2s ease;
+    ">
+</div>
+
+        <div class="glass-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Content Preview</th>
+                        <th>Verdict</th>
+                        <th>Confidence</th>
+                        <th>Key Indicators</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in history %}
+                    <tr>
+                        <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ item.content }}
+                        </td>
+                        <td>
+                            {% if 'Fake' in item.result %}
+                                <span class="badge" style="background: rgba(255,77,77,0.1); color: var(--danger);">
+                                    <i class="fa-solid fa-circle-xmark"></i> {{ item.result }}
+                                </span>
+                            {% elif 'Suspicious' in item.result %}
+                                <span class="badge" style="background: rgba(245,158,11,0.1); color: var(--warning);">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> {{ item.result }}
+                                </span>
+                            {% else %}
+                                <span class="badge" style="background: rgba(0,242,255,0.1); color: var(--primary);">
+                                    <i class="fa-solid fa-circle-check"></i> {{ item.result }}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td style="font-weight: 600;">{{ item.confidence }}%</td>
+                        <td style="color: var(--text-muted); font-size: 13px;">{{ item.explanation }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+<script>
+        function filterTable() {
+            // Grab the search input and convert to lowercase for non-case-sensitive matching
+            let input = document.getElementById("searchInput");
+            let filter = input.value.toLowerCase();
+            let table = document.querySelector("table");
+            let tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows (skipping the header at index 0)
+            for (let i = 1; i < tr.length; i++) {
+                let rowText = tr[i].innerText.toLowerCase();
+
+                // If the typed letters exist anywhere in that row, show it. Otherwise, hide it!
+                if (rowText.indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</html>
